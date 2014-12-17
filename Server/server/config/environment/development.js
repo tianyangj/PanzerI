@@ -5,8 +5,8 @@
 module.exports = {
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://localhost/server-dev'
+    uri: 'mongodb://localhost/LilyBook'
   },
 
-  seedDB: true
+  seedDB: false
 };
