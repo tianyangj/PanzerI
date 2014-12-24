@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 
 var ProductSchema = new mongoose.Schema({
-  	productCode: String,
+  	/*productCode: String,
   	productName: String,
   	productLine: String,
   	productScale: String,
@@ -11,7 +11,7 @@ var ProductSchema = new mongoose.Schema({
   	productDescription: String,
   	quantityInStock: Number,
   	buyPrice: Number,
-  	MSRP: Number
+  	MSRP: Number*/
 });
 
 module.exports = mongoose.model('Product', ProductSchema);
