@@ -25,7 +25,7 @@ var ProductSchema = new mongoose.Schema({
   	productModelID: Number,
   	sellStartDate: Date,
   	sellEndDate: Date,
-  	discontinuedDate: Date
+  	discontinuedDate: Date,
   	reviews: [],
   	photos: []
 }, {
