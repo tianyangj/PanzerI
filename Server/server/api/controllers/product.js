@@ -18,7 +18,7 @@ var list = function(req, res) {
 };
 
 var read = function(req, res) {
-	Product.findOne({ productID: Number(req.params.id) }, function(err, product) {
+	Product.findOne({ productID: Number(req.params.id) }, '-_id', function(err, product) {
 		if (!product) {
 			return res.send(404);
 		}
@@ -27,14 +27,14 @@ var read = function(req, res) {
 };
 
 var reviews = function(req, res) {
-	Product.findOne({ productID: Number(req.params.id) }, function(err, product) {
+	Product.findOne({ productID: Number(req.params.id) }, '-_id', function(err, product) {
 		if (!product) {
 			return res.send(404);
 		}
 		var reviewIds = product.reviews.map(function(review) {
 			return review.reviewID;
 		});
-		ProductReview.find({productReviewID: {$in: reviewIds}}, function(err, reviews){
+		ProductReview.find({productReviewID: {$in: reviewIds}}, '-_id', function(err, reviews){
 			product.reviews = reviews;
 			return res.json(200, product);
 		});
@@ -42,14 +42,14 @@ var reviews = function(req, res) {
 };
 
 var photos = function(req, res) {
-	Product.findOne({ productID: Number(req.params.id) }, function(err, product) {
+	Product.findOne({ productID: Number(req.params.id) }, '-_id', function(err, product) {
 		if (!product) {
 			return res.send(404);
 		}
 		var photoIds = product.photos.map(function(photo) {
 			return photo.photoID;
 		});
-		ProductPhoto.find({productPhotoID: {$in: photoIds}}, function(err, photos){
+		ProductPhoto.find({productPhotoID: {$in: photoIds}}, '-_id', function(err, photos){
 			product.photos = photos;
 			return res.json(200, product);
 		});

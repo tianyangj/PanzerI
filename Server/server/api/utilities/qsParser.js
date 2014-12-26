@@ -3,12 +3,18 @@
 var _ = require('lodash');
 
 exports.get = function(query) {
-	return _.merge({
+	var defaults = {
 		conditions: {},
-		fields: {},
+		fields: {
+			_id: 0
+		},
 		options: {
 			skip: 0,
 			limit: 10
 		}
-	}, JSON.parse(query));
+	};
+	if (query) {
+		return _.merge(defaults, JSON.parse(query));
+	}
+	return defaults;
 }
