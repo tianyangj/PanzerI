@@ -11,12 +11,8 @@ mongodb.MongoClient.connect(config.mongo.uri, function(err, database) {
 	collection = database.collection('products.photos');
 });
 
-var list = function(photoIds, qs) {
-	var query = queryHelper.normalize(qs, {
-		criteria: { 
-			productPhotoID: { $in: photoIds }
-		}
-	});
+var list = function(photoIds, querystring) {
+	var query = queryHelper.create(querystring, { productPhotoID: { $in: photoIds } });
 	var defer = Q.defer();
 	collection.find(query.criteria, query.options).toArray(function(err, photos) {
 		if (err) {

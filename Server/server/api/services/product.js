@@ -11,8 +11,8 @@ mongodb.MongoClient.connect(config.mongo.uri, function(err, database) {
 	collection = database.collection('products');
 });
 
-var list = function(qs) {
-	var query = queryHelper.normalize(qs);
+var list = function(querystring) {
+	var query = queryHelper.create(querystring);
 	var defer = Q.defer();
 	collection.find(query.criteria, query.options).toArray(function(err, products) {
 		if (err) {
@@ -23,12 +23,8 @@ var list = function(qs) {
 	return defer.promise;
 };
 
-var read = function(productId, qs) {
-	var query = queryHelper.normalize(qs, {
-		criteria: { 
-			productID: Number(productId) 
-		}
-	});
+var read = function(productId, querystring) {
+	var query = queryHelper.create(querystring, { productID: Number(productId) });
 	var defer = Q.defer();
 	collection.findOne(query.criteria, query.options, function(err, product) {
 		if (err) {

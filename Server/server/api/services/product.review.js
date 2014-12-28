@@ -11,12 +11,8 @@ mongodb.MongoClient.connect(config.mongo.uri, function(err, database) {
 	collection = database.collection('products.reviews');
 });
 
-var list = function(reviewIds, qs) {
-	var query = queryHelper.normalize(qs, {
-		criteria: { 
-			productReviewID: { $in: reviewIds }
-		}
-	});
+var list = function(reviewIds, querystring) {
+	var query = queryHelper.create(querystring, { productReviewID: { $in: reviewIds } });
 	var defer = Q.defer();
 	collection.find(query.criteria, query.options).toArray(function(err, reviews) {
 		if (err) {

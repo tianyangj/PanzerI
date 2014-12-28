@@ -9,7 +9,7 @@ var productReviewService = require('../services/product.review');
 var router = express.Router();
 
 var list = function(req, res) {
-	productService.list(req.query.query).then(function(products) {
+	productService.list(req.query).then(function(products) {
 		return res.json(200, products);
 	}, function(err) {
 		return res.json(500, err);
@@ -17,7 +17,7 @@ var list = function(req, res) {
 };
 
 var read = function(req, res) {
-	productService.read(req.params.id, req.query.query).then(function(product) {
+	productService.read(req.params.id, req.query).then(function(product) {
 		if (!product) {
 			return res.send(404);
 		}
@@ -37,7 +37,7 @@ var reviews = function(req, res) {
 		var reviewIds = product.reviews.map(function(review) {
 			return review.reviewID;
 		});
-		productReviewService.list(reviewIds, req.query.query).then(function(reviews) {
+		productReviewService.list(reviewIds, req.query).then(function(reviews) {
 			product.reviews.forEach(function(review, index) {
 				_.merge(review, reviews[index]);
 			});
@@ -56,7 +56,7 @@ var photos = function(req, res) {
 		var photoIds = product.photos.map(function(photo) {
 			return photo.photoID;
 		});
-		productPhotoService.list(photoIds, req.query.query).then(function(photos) {
+		productPhotoService.list(photoIds, req.query).then(function(photos) {
 			product.photos.forEach(function(photo, index) {
 				_.merge(photo, photos[index]);
 			});
