@@ -2,7 +2,8 @@
 
 var _ = require('lodash');
 
-exports.create = function(querystring, selector) {
+exports.create = function(operator, selector) {
+	//console.log('before => ', operator, selector);
 	var defaults = {
 		criteria: {},
 		options: {
@@ -14,25 +15,26 @@ exports.create = function(querystring, selector) {
 			},
 		}
 	};
-	if (querystring) {
-		if (querystring.skip) {
-			defaults.options.skip = Number(querystring.skip);
+	if (operator) {
+		if (operator.skip) {
+			defaults.options.skip = JSON.parse(operator.skip);
 		}
-		if (querystring.limit) {
-			defaults.options.limit = Number(querystring.limit);
+		if (operator.limit) {
+			defaults.options.limit = JSON.parse(operator.limit);
 		}
-		if (querystring.sort) {
-			defaults.options.sort = JSON.parse(querystring.sort);
+		if (operator.sort) {
+			_.merge(defaults.options.sort, JSON.parse(operator.sort));
 		}
-		if (querystring.fields) {
-			_.merge(defaults.options.fields, JSON.parse(querystring.fields));
+		if (operator.fields) {
+			_.merge(defaults.options.fields, JSON.parse(operator.fields));
 		}
-		if (querystring.query) {
-			defaults.criteria = JSON.parse(querystring.query);
+		if (operator.query) {
+			_.merge(defaults.criteria, JSON.parse(operator.query));
 		}
 	}
 	if (selector) {
-		defaults.criteria = selector;
+		_.merge(defaults.criteria, selector);
 	}
+	//console.log('after => ', defaults);
 	return defaults;
-}
+};

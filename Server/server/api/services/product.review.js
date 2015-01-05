@@ -1,3 +1,4 @@
+//todo: obsolete, remove
 'use strict';
 
 var Q = require('q');
