@@ -5,6 +5,7 @@ var express = require('express');
 var productService = require('../services/product');
 var productPhotoService = require('../services/product.photo');
 var productReviewService = require('../services/product.review');
+var productModelService = require('../services/product.model');
 
 var router = express.Router();
 
@@ -65,9 +66,54 @@ var photos = function(req, res) {
 	});
 };
 
+var model = function(req, res) {
+	productService.read(req.params.id).then(function(product) {
+		if (!product) {
+			return res.send(404);
+		}
+		return product;
+	}).then(function(product) {
+		productModelService.read(product.productModelID, req.query).then(function(model) {
+			product.model = model;
+			return res.json(200, product);
+		});
+	});
+};
+
+var descriptions = function(req, res) {
+	productService.read(req.params.id).then(function(product) {
+		if (!product) {
+			return res.send(404);
+		}
+		return product;
+	}).then(function(product) {
+		productModelService.readDescriptions(product.productModelID, req.query).then(function(model) {
+			product.model = model;
+			return res.json(200, product);
+		});
+	});
+}
+
+var illustrations = function(req, res) {
+	productService.read(req.params.id).then(function(product) {
+		if (!product) {
+			return res.send(404);
+		}
+		return product;
+	}).then(function(product) {
+		productModelService.readIllustrations(product.productModelID, req.query).then(function(model) {
+			product.model = model;
+			return res.json(200, product);
+		});
+	});
+}
+
 router.get('/', list);
 router.get('/:id', read);
 router.get('/:id/reviews', reviews);
 router.get('/:id/photos', photos);
+router.get('/:id/model', model);
+router.get('/:id/model/descriptions', descriptions);
+router.get('/:id/model/illustrations', illustrations);
 
 module.exports = router;
