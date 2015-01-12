@@ -11,6 +11,8 @@ var getProduct = function(req, res, edge) {
 				return productService.getProductReviews(productId, req.query);
 			case 'photos':
 				return productService.getProductPhotos(productId, req.query);
+			case 'documents':
+				return productService.getProductDocuments(productId, req.query);
 			case 'model':
 				return productService.getProductModel(productId, req.query);
 			case 'descriptions':
@@ -51,6 +53,10 @@ router.get('/:id/reviews', function(req, res) {
 
 router.get('/:id/photos', function(req, res) {
 	getProduct(req, res, 'photos'); 
+});
+
+router.get('/:id/documents', function(req, res) {
+	getProduct(req, res, 'documents');
 });
 
 router.get('/:id/model', function(req, res) {

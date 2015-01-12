@@ -9,6 +9,7 @@ var queryHelper = require('../utilities/queryHelper');
 var productsCollection;
 var productsReviewsCollection;
 var productsPhotosCollection;
+var productsDocumentsCollection;
 var productsModelsCollection;
 var productsModelsDescriptionsCollection;
 var productsModelsIllustrationsCollection;
@@ -17,6 +18,7 @@ mongodb.MongoClient.connect(config.mongo.uri, function(err, database) {
 	productsCollection = database.collection('products');
 	productsReviewsCollection = database.collection('products.reviews');
 	productsPhotosCollection = database.collection('products.photos');
+	productsDocumentsCollection = database.collection('products.documents');
 	productsModelsCollection = database.collection('products.models');
 	productsModelsDescriptionsCollection = database.collection('products.models.descriptions');
 	productsModelsIllustrationsCollection = database.collection('products.models.illustrations');
@@ -86,6 +88,26 @@ var getProductPhotos = function(productId, querystring) {
 	return defer.promise;
 };
 
+var getProductDocuments = function(productId, querystring) {
+	var defer = Q.defer();
+	getProduct(productId).then(function(product) {
+		var documentNotes = product.documents.map(function(document) {
+			return document.documentNode;
+		});
+		var query = queryHelper.create(querystring, { documentNode: { $in: documentNotes } });
+		productsDocumentsCollection.find(query.criteria, query.options).toArray(function(err, documents) {
+			if (err) {
+				defer.reject(err);
+			}
+			product.documents.forEach(function(document, index) {
+				_.merge(document, documents[index]);
+			});
+			defer.resolve(product);
+		});
+	});
+	return defer.promise;
+};
+
 var getProductModel = function(productId, querystring) {
 	var defer = Q.defer();
 	getProduct(productId).then(function(product) {
@@ -139,6 +161,7 @@ module.exports = {
 	getProduct: getProduct,
 	getProductReviews: getProductReviews,
 	getProductPhotos: getProductPhotos,
+	getProductDocuments: getProductDocuments,
 	getProductModel: getProductModel,
 	getProductModelDescriptions: getProductModelDescriptions,
 	getProductModelIllustrations: getProductModelIllustrations
