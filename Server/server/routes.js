@@ -19,6 +19,7 @@ module.exports = function(app) {
   app.use('/api/users', require('./api/user'));
   app.use('/api/products', require('./api/controllers/product.native'));
   app.use('/api/carts', require('./api/controllers/cart'));
+  app.use('/api/photos', require('./api/controllers/photo'));
 
   app.use('/auth', require('./auth'));
   
