@@ -31,7 +31,31 @@ var getProducts = function(querystring) {
 		if (err) {
 			defer.reject(err);
 		}
-		defer.resolve(products);
+		// get array of primary photo id
+		var photoIds = products.map(function(product) {
+			// find primary photo
+			var primary = _.find(product.photos, function(photo) {
+				return photo.primary;
+			});
+			// add temp photoID
+ 			product.photoID = primary.photoID;
+ 			return primary.photoID;
+ 		});
+ 		// find primary photos by photo ids
+ 		productsPhotosCollection.find({productPhotoID:{$in:photoIds}},{fields:{_id:0}}).toArray(function(err, photos) {
+ 			if (err) {
+ 				defer.reject(err);
+ 			}
+ 			// add photo to product
+ 			products.forEach(function(product) {
+ 				product.primaryPhoto = _.find(photos, function(photo) {
+ 					return photo.productPhotoID === product.photoID;
+ 				});
+ 				// remove temp photoID
+ 				delete product.photoID;
+ 			});
+ 			defer.resolve(products);
+ 		});
 	});
 	return defer.promise;
 };
