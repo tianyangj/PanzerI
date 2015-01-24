@@ -14,8 +14,11 @@ angular.module('featured').controller('featuredDetailController', function($scop
 		});
 	});
 
+	$scope.count = 0;
 	$scope.buy = function(){
+		$scope.count++;
 		supersonic.logger.debug($scope.product);
 		supersonic.ui.animate("curlDown").perform();
+		supersonic.ui.tabs.update([{},{},{},{},{badge:$scope.count+''}]);
 	};
 });
