@@ -13,4 +13,9 @@ angular.module('featured').controller('featuredDetailController', function($scop
 			supersonic.logger.log(err);
 		});
 	});
+
+	$scope.buy = function(){
+		supersonic.logger.debug($scope.product);
+		supersonic.ui.animate("curlDown").perform();
+	};
 });

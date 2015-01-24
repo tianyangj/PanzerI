@@ -1,6 +1,7 @@
 <div class="padding" ng-controller="featuredDetailController">
 	<super-navbar>
 		<super-navbar-title ng-bind="product.name"></super-navbar-title>
+		<super-navbar-button side="right" ng-click="buy()">BUY NOW</super-navbar-button>
 	</super-navbar>
 	<p>{{product | json}}</p>
 </div>
