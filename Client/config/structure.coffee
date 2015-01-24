@@ -24,6 +24,11 @@ module.exports =
       id: "internet"
       location: "http://google.com" # URLs are supported!
     }
+    {
+      title: "Cart"
+      id: "cart"
+      location: "cart#index"
+    }
   ]
 
   # rootView:
