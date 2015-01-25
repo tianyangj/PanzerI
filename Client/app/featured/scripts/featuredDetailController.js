@@ -1,17 +1,33 @@
 angular.module('featured').controller('featuredDetailController', function($scope, $http, supersonic) {
 
-	supersonic.ui.views.current.whenVisible(function() {
-		supersonic.logger.debug("featured detail view is now visible");
+	supersonic.ui.views.current.params.onValue(function(product){
+		supersonic.logger.log('onValue')
+		$scope.product = product;
+		// get descriptions
 		$http({
 			method: 'GET',
-			url: 'http://192.168.1.113:9000/api/products/' + steroids.view.params.id
+			url: 'http://192.168.1.113:9000/api/products/' + product.productID + '/model/descriptions'
 		}).then(function(response) {
-			supersonic.logger.log('detail success');
-			$scope.product = response.data;
+			$scope.model = response.data.model;
 		}, function(err) {
-			supersonic.logger.info('detail fail');
 			supersonic.logger.log(err);
 		});
+		// get reviews
+		$http({
+			method: 'GET',
+			url: 'http://192.168.1.113:9000/api/products/' + product.productID + '/reviews'
+		}).then(function(response) {
+			$scope.reviews = response.data.reviews;
+		}, function(err) {
+			supersonic.logger.log(err);
+		});
+	});
+
+	supersonic.ui.views.current.whenHidden(function() {
+		supersonic.logger.log('whenHidden')
+		$scope.product = null;
+		$scope.model = null;
+		$scope.reviews = null;
 	});
 
 	$scope.count = 0;

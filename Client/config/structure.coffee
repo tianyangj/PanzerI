@@ -43,6 +43,10 @@ module.exports =
       id: "using-the-scanner"
       location: "example#using-the-scanner"
     }
+    {
+      id: "featured-detail"
+      location: "featured#detail"
+    }
   ]
 
   drawers:

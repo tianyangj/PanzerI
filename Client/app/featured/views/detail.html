@@ -3,5 +3,35 @@
 		<super-navbar-title ng-bind="product.name"></super-navbar-title>
 		<super-navbar-button side="right" ng-click="buy()">BUY NOW</super-navbar-button>
 	</super-navbar>
-	<p>{{product | json}}</p>
+	<div class="list card">
+		<div class="item item-avatar">
+    		<img ng-src="{{'http://i166.photobucket.com/albums/u109/tianyangj/adventureworks/' + product.primaryPhoto.thumbnailPhotoFileName}}">
+    		<h2>{{product.name}}</h2>
+  		</div>
+	  	<div class="item item-body">
+	  		<img class="full-image" ng-src="{{'http://i166.photobucket.com/albums/u109/tianyangj/adventureworks/' + product.primaryPhoto.largePhotoFileName}}">
+	  		<!--<p>Category: {{product.categoryName}} - {{product.subcategoryName}}</p>
+	    	<p>Sales Date: {{product.sellStartDate|date}} - {{product.sellEndDate|date}}</p>
+	    	<p>Size: {{product.size}}</p>
+	    	<p>Color: {{product.color}}</p>-->
+	    	<p>
+	      		<a href="#" class="subdued">1 Like</a>
+	      		<a href="#" class="subdued">{{product.reviews.length}} Reviews</a>
+	    	</p>
+	  	</div>
+	</div>
+	<div class="list card" ng-if="model">
+		<div class="item item-body">
+			<p ng-repeat="description in model.descriptions">
+				{{description.description}}
+			</p>
+		</div>
+	</div>
+	<div class="list card" ng-if="reviews">
+		<div class="item item-body">
+			<p ng-repeat="review in reviews">
+				{{review.comments}}
+			</p>
+		</div>
+	</div>
 </div>

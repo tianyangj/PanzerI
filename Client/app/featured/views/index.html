@@ -3,13 +3,11 @@
 		<super-navbar-title>Featured</super-navbar-title>
 	</super-navbar>
 	<ul class="list">
-		<super-navigate ng-attr-location="featured#detail?id={{product.productID}}" ng-repeat="product in products">
-			<li class="item item-thumbnail-left">
-				<img ng-src="{{'http://i166.photobucket.com/albums/u109/tianyangj/adventureworks/' + product.primaryPhoto.thumbnailPhotoFileName}}">
-				<h2>{{product.name}}</h2>
-				<p>{{product.categoryName}} - {{product.subcategoryName}}</p>
-				<p>{{product.listPrice | currency}}</p>
-			</li>
-		</super-navigate>
+		<li class="item item-thumbnail-left" ng-click="navigateDetail(product)" ng-repeat="product in products">
+			<img ng-src="{{'http://i166.photobucket.com/albums/u109/tianyangj/adventureworks/' + product.primaryPhoto.thumbnailPhotoFileName}}">
+			<h2>{{product.name}}</h2>
+			<p>{{product.categoryName}} - {{product.subcategoryName}}</p>
+			<p>{{product.listPrice | currency}}</p>
+		</li>
 	</ul>
 </div>

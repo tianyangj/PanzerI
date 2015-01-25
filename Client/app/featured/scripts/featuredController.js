@@ -14,4 +14,12 @@ angular.module('featured').controller('featuredController', function($scope, $ht
 		supersonic.logger.log(err);
 	});
 
+	$scope.navigateDetail = function(product) {
+		supersonic.ui.views.find('featured-detail').then(function(view) {
+			supersonic.ui.layers.push(view, { 
+				params: product
+			});
+		});
+	};
+
 });
