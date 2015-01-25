@@ -20,9 +20,9 @@ module.exports =
       location: "example#settings"
     }
     {
-      title: "Internet"
-      id: "internet"
-      location: "http://google.com" # URLs are supported!
+      title: "Account"
+      id: "account"
+      location: "account#index"
     }
     {
       title: "Cart"
@@ -46,6 +46,14 @@ module.exports =
     {
       id: "featured-detail"
       location: "featured#detail"
+    }
+    {
+      id: "modal-signin"
+      location: "account#modal-signin"
+    }
+    {
+      id: "modal-signup"
+      location: "account#modal-signup"
     }
   ]
 
