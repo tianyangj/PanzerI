@@ -45,13 +45,13 @@ module.exports =
     }
   ]
 
-  # drawers:
-  #   left:
-  #     id: "leftDrawer"
-  #     location: "example#drawer"
-  #     showOnAppLoad: false
-  #   options:
-  #     animation: "swingingDoor"
+  drawers:
+    right:
+      id: "leftDrawer"
+      location: "example#drawer"
+      showOnAppLoad: false
+    options:
+      animation: "swingingDoor"
   #
   # initialView:
   #   id: "initialView"

@@ -20,5 +20,8 @@ angular.module('featured').controller('featuredDetailController', function($scop
 		supersonic.logger.debug($scope.product);
 		supersonic.ui.animate("curlDown").perform();
 		supersonic.ui.tabs.update([{},{},{},{},{badge:$scope.count+''}]);
+		supersonic.ui.drawers.open("right").then(function() {
+		  	supersonic.logger.debug("Drawer was shown");
+		});
 	};
 });
